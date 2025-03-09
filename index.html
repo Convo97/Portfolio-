@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Muthu | Electronics & Development</title>
+  <style>
+    :root {
+      --color-bg: #0a192f;
+      --color-bg-alt: #112240;
+      --color-primary: #64ffda;
+      --color-secondary: #8892b0;
+      --color-text: #ccd6f6;
+      --color-text-muted: #8892b0;
+      --github-color: #333;
+      --linkedin-color: #0077b5;
+      --gradient-primary: linear-gradient(120deg, #64ffda, #00b4d8);
+      --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+      --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3 {
+      line-height: 1.2;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: var(--gradient-primary);
+      border-radius: 2px;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin-bottom: 2rem;
+      text-align: center;
+      color: var(--color-primary);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    section {
+      padding: 5rem 0;
+      position: relative;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://images.unsplash.com/photo-1517134191118-9d595e4c8c2b?auto=format&fit=crop&q=80');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.05;
+      z-index: -1;
+      animation: slowZoom 20s infinite alternate;
+    }
+
+    @keyframes slowZoom {
+      from { transform: scale(1); }
+      to { transform: scale(1.1); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+    }
+
+    .hero-subtitle {
+      color: var(--color-primary);
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s ease forwards 0.5s;
+    }
+
+    .hero-description {
+      color: var(--color-text-muted);
+      margin: 2rem 0;
+      font-size: 1.1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s ease forwards 0.7s;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    .social-link {
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary);
+      text-decoration: none;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      background: var(--color-bg-alt);
+      border: 2px solid var(--color-primary);
+    }
+
+    .social-link svg {
+      width: 1.5rem;
+      height: 1.5rem;
+      transition: var(--transition);
+      z-index: 2;
+    }
+
+    .social-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--color-primary);
+      transform: translateY(100%);
+      transition: var(--transition);
+      z-index: 1;
+    }
+
+    .social-link:hover::before {
+      transform: translateY(0);
+    }
+
+    .social-link:hover {
+      transform: translateY(-5px);
+    }
+
+    .social-link:hover svg {
+      transform: scale(1.2);
+      color: var(--color-bg);
+    }
+
+    .resume-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--color-primary);
+      text-decoration: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      border: 2px solid var(--color-primary);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .resume-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--color-primary);
+      transform: translateX(-100%) rotate(45deg);
+      transition: var(--transition);
+      z-index: -1;
+    }
+
+    .resume-button:hover::before {
+      transform: translateX(0) rotate(45deg);
+    }
+
+    .resume-button:hover {
+      color: var(--color-bg);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      background: var(--color-bg-alt);
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+      border: 1px solid transparent;
+      position: relative;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, var(--color-primary), transparent);
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .project-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--color-primary);
+    }
+
+    .project-card:hover::before {
+      opacity: 0.1;
+    }
+
+    .project-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .project-card:hover .project-image {
+      transform: scale(1.05);
+    }
+
+    .project-content {
+      padding: 1.5rem;
+    }
+
+    .project-title {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: var(--color-primary);
+    }
+
+    .project-description {
+      color: var(--color-text-muted);
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      background: var(--color-bg);
+      color: var(--color-primary);
+      padding: 0.25rem 0.75rem;
+      border-radius: 1rem;
+      font-size: 0.875rem;
+      transition: var(--transition);
+      border: 1px solid var(--color-primary);
+    }
+
+    .tag:hover {
+      background: var(--color-primary);
+      color: var(--color-bg);
+    }
+
+    .experience {
+      background: var(--color-bg-alt);
+      padding: 5rem 0;
+    }
+
+    .experience-card {
+      background: var(--color-bg);
+      padding: 2rem;
+      border-radius: 1rem;
+      margin-bottom: 2rem;
+      border: 1px solid var(--color-primary);
+      transition: var(--transition);
+    }
+
+    .experience-card:hover {
+      transform: translateX(10px);
+    }
+
+    .experience-title {
+      color: var(--color-primary);
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .experience-company {
+      color: var(--color-text);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .experience-duration {
+      color: var(--color-text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--color-text-muted);
+      border-top: 1px solid var(--color-bg-alt);
+    }
+
+    @media (max-width: 768px) {
+      section {
+        padding: 3rem 0;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .social-link {
+        width: 3rem;
+        height: 3rem;
+      }
+
+      .social-link svg {
+        width: 1.2rem;
+        height: 1.2rem;
+      }
+
+      .experience-card {
+        padding: 1.5rem;
+      }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--color-bg-alt);
+      z-index: 1000;
+    }
+
+    .scroll-progress-bar {
+      height: 100%;
+      background: var(--color-primary);
+      width: 0;
+      transition: width 0.1s ease;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--color-bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--color-primary);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--color-secondary);
+    }
+
+    .skills {
+      background: var(--color-bg-alt);
+      padding: 5rem 0;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .skill-card {
+      background: var(--color-bg);
+      border-radius: 1rem;
+      padding: 2rem;
+      border: 1px solid var(--color-primary);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, var(--color-primary), transparent);
+      opacity: 0;
+      transition: var(--transition);
+      z-index: 1;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .skill-card:hover::before {
+      opacity: 0.05;
+    }
+
+    .skill-icon {
+      color: var(--color-primary);
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .skill-title {
+      font-size: 1.25rem;
+      color: var(--color-primary);
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .skill-description {
+      color: var(--color-text-muted);
+      position: relative;
+      z-index: 2;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-progress">
+    <div class="scroll-progress-bar"></div>
+  </div>
+
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-subtitle">Hi, I'm</p>
+      <h1>Muthu</h1>
+      <p class="hero-description">
+        A passionate Electronics & Communication Engineering student and Full Stack Developer. 
+        Currently in my second year, I combine my academic knowledge with practical experience 
+        teaching programming at a computer institute.
+      </p>
+      <div class="social-links">
+        <a href="https://github.com/Convo97" target="_blank" rel="noopener noreferrer" class="social-link github">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+        </a>
+        <a href="https://www.linkedin.com/posts/muthu-velmurugan-524886308_internship-activity-7281368527855329280-imSB?utm_source=share&utm_medium=member_android&rcm=ACoAAE5wk2wB5rWSV_fYx-vvPcpqDUNaXYML1kE" target="_blank" rel="noopener noreferrer" class="social-link linkedin">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+        </a>
+      </div>
+      <a href="file:///C:/Users/muthu/OneDrive/project/my%20resume%20.pdf" download class="resume-button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        Download Resume
+      </a>
+    </div>
+  </section>
+
+  <section class="experience">
+    <div class="container">
+      <h2>Experience</h2>
+      <div class="experience-card fade-in">
+        <h3 class="experience-title">Full Stack Development Instructor</h3>
+        <p class="experience-company">Computer Institute</p>
+        <p class="experience-duration">2023 - Present (1 year)</p>
+        <p class="experience-description">
+          Teaching web development, programming fundamentals, and electronics to students.
+          Developed comprehensive curriculum covering HTML, CSS, JavaScript, and basic electronics.
+          Mentored over 50 students in their programming journey.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="skills">
+    <div class="container">
+      <h2>Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-card fade-in">
+          <div class="skill-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 5v14"></path>
+              <path d="M18 5v14"></path>
+              <path d="M10 9h4"></path>
+              <path d="M10 12h4"></path>
+              <path d="M10 15h4"></path>
+            </svg>
+          </div>
+          <h3 class="skill-title">Embedded Systems & IoT</h3>
+          <p class="skill-description">
+            Expertise in sensor integration and developing smart home automation solutions using IoT and microcontrollers. Proficient in ESP32, Arduino, and various sensor technologies.
+          </p>
+        </div>
+        
+        <div class="skill-card fade-in">
+          <div class="skill-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+              <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+              <path d="M2 2l7.586 7.586"></path>
+              <path d="M11 11l-4 4"></path>
+            </svg>
+          </div>
+          <h3 class="skill-title">Full Stack Development</h3>
+          <p class="skill-description">
+            Proficient in modern web technologies including React, SQL, MongoDB, and RESTful API integration. Experience in building responsive and scalable web applications.
+          </p>
+        </div>
+        
+        <div class="skill-card fade-in">
+          <div class="skill-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2m5.66 0H14a2 2 0 0 1 2 2v3.34"></path>
+              <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+              <path d="M5 8v10"></path>
+              <path d="M9 8v10"></path>
+            </svg>
+          </div>
+          <h3 class="skill-title">Hardware-Software Integration</h3>
+          <p class="skill-description">
+            Specialized in bridging embedded systems with cloud applications for real-time monitoring and control. Experience in developing full-stack IoT solutions.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects">
+    <div class="container">
+      <h2>Featured Projects</h2>
+      <div class="projects-grid">
+        <div class="project-card fade-in">
+          <img src="wed socket.webp" alt="Smart Socket System" class="project-image">
+          <div class="project-content">
+            <h3 class="project-title">Smart Socket System</h3>
+            <p class="project-description">
+              Developed an IoT-enabled power socket system with real-time monitoring and control capabilities.
+              Features include power consumption tracking, scheduling, and remote control through a web interface.
+            </p>
+            <div class="project-tags">
+              <span class="tag">ESP32</span>
+              <span class="tag">WebSocket</span>
+              <span class="tag">IoT</span>
+              <span class="tag">HTML/CSS/JS</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card fade-in">
+          <img src="wii car.webp" alt="Smart Mini Car" class="project-image">
+          <div class="project-content">
+            <h3 class="project-title">Smart Mini Car</h3>
+            <p class="project-description">
+              Built a WiFi-controlled robotic car featuring real-time video streaming and smartphone control.
+              Implemented obstacle avoidance using ultrasonic sensors and smooth motion control.
+            </p>
+            <div class="project-tags">
+              <span class="tag">ESP32-CAM</span>
+              <span class="tag">Motors</span>
+              <span class="tag">WebServer</span>
+              <span class="tag">C++</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card fade-in">
+          <img src="weather api.webp" alt="Weather Station" class="project-image">
+          <div class="project-content">
+            <h3 class="project-title">IoT Weather Station</h3>
+            <p class="project-description">
+              Created an ESP32-based weather monitoring system with multiple environmental sensors.
+              Integrated with OpenWeatherMap API for accurate weather forecasting and data logging.
+            </p>
+            <div class="project-tags">
+              <span class="tag">Weather API</span>
+              <span class="tag">Sensors</span>
+              <span class="tag">Dashboard</span>
+              <span class="tag">ESP32</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2024 Muthu. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Intersection Observer for fade-in animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    // Observe all elements with fade-in class
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Smooth reveal animation for social links
+    document.addEventListener('DOMContentLoaded', () => {
+      const socialLinks = document.querySelectorAll('.social-link');
+      socialLinks.forEach((link, index) => {
+        link.style.opacity = '0';
+        link.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          link.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+          link.style.opacity = '1';
+          link.style.transform = 'translateY(0)';
+        }, 100 * (index + 1));
+      });
+    });
+
+    // Scroll Progress Bar
+    window.addEventListener('scroll', () => {
+      const scrollProgress = document.querySelector('.scroll-progress-bar');
+      const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      scrollProgress.style.width = `${scrolled}%`;
+    });
+  </script>
+</body>
+</html>
